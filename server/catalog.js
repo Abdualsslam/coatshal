@@ -4,13 +4,13 @@ export const catalog = {
   products: [
     {
       id: 'classic-coat', category: 'coats', name: 'الكوت الكلاسيكي',
-      description: 'كوت سادة بياقة واضحة وقصّة مستقيمة. استكشف درجاته كما تظهر على مِشجب كوتشال.',
-      image: '/images/classic-coats.jpg', imageSize: [600, 505], color: 'أسود', price: 28000,
+      description: 'كوت سادة بياقة واضحة وقصّة مستقيمة. قارن درجاته واختر اللون الذي يناسب إطلالتك.',
+      image: '/images/classic-coats.jpg', color: 'أسود', price: 28000,
       colors: [
-        { id: 'black', name: 'أسود', swatch: '#25252a', crop: [8, 124, 244, 335] },
-        { id: 'sand', name: 'رملي', swatch: '#c6b79d', crop: [237, 128, 222, 320] },
-        { id: 'taupe', name: 'بني رمادي', swatch: '#77675b', crop: [345, 120, 186, 310] },
-        { id: 'light-grey', name: 'رمادي فاتح', swatch: '#a69e90', crop: [435, 105, 165, 300] },
+        { id: 'black', name: 'أسود', swatch: '#25252a', studioImage: '/images/classic-coat/black.jpg' },
+        { id: 'sand', name: 'رملي', swatch: '#c6b79d', studioImage: '/images/classic-coat/sand.jpg' },
+        { id: 'taupe', name: 'بني رمادي', swatch: '#77675b', studioImage: '/images/classic-coat/taupe.jpg' },
+        { id: 'light-grey', name: 'رمادي فاتح', swatch: '#a69e90', studioImage: '/images/classic-coat/light-grey.jpg' },
       ],
       variants: [
         { id: 'm', name: 'M', stock: 8, colorId: 'black' },

@@ -100,15 +100,10 @@ function shadePicker(product, color) {
 }
 
 function lookPhoto(product, color, className = '') {
-  const name = html(color ? product.name + '، ' + color.name : 'صورة ' + product.name);
-  const crop = color?.crop;
-  const picture = crop && product.imageSize
-    ? `<svg role="img" aria-label="${name}" viewBox="${html(crop.join(' '))}" width="${crop[2]}" height="${crop[3]}" preserveAspectRatio="xMidYMid slice">
-        <image href="${html(product.image)}" width="${product.imageSize[0]}" height="${product.imageSize[1]}"/>
-      </svg>`
-    : `<img src="${html(product.image)}" alt="${name}">`;
-  return `<div class="look-photo ${className}" data-tone="${html(color?.id ?? 'full')}">
-    ${picture}
+  const studio = color?.studioImage;
+  const name = color ? product.name + '، ' + color.name : 'صورة ' + product.name;
+  return `<div class="look-photo ${className}" data-tone="${html(color?.id ?? 'full')}"${studio ? ' data-studio' : ''}>
+    <img src="${html(studio ?? product.image)}" alt="${html(name)}">
   </div>`;
 }
 
@@ -163,7 +158,7 @@ function renderLook(product) {
     <article class="look-stage">
       <figure class="look-figure">
         <a class="look-media-link" href="${url}" aria-label="عرض ${html(product.name)}">${lookPhoto(product, color)}</a>
-        <figcaption>من المِشجب <span>${html(color?.name ?? product.color)}</span></figcaption>
+        <figcaption>${color?.studioImage ? 'تصوّر مولّد' : 'من المِشجب'} <span>${html(color?.name ?? product.color)}</span></figcaption>
       </figure>
       <div class="look-copy">
         <h3>${html(product.name)}</h3>
@@ -203,20 +198,22 @@ function renderProductPage() {
   showMessage('product-status');
   const requested = new URLSearchParams(location.search).get('color');
   let color = colorOf(product, requested);
-  galleryView ??= color && color.id === requested ? requested : 'full';
+  galleryView ??= color && (color.id === requested || color.studioImage) ? color.id : 'full';
   const gallery = product.colors?.length ? [null, ...product.colors] : [];
+  const hasStudioImages = gallery.some((shade) => shade?.studioImage);
+  const originalLabel = hasStudioImages ? 'صورة المعرض' : 'الصورة الكاملة';
   detail.innerHTML = `
     <div class="product-layout">
       <div class="product-gallery">
         <figure class="product-cover" id="product-cover"></figure>
         ${gallery.length ? `<div class="gallery-strip" role="group" aria-label="صور المنتج">${gallery.map((shade) => {
-          const label = shade?.name ?? 'الصورة الكاملة';
+          const label = shade?.name ?? originalLabel;
           return `<button type="button" data-gallery="${html(shade?.id ?? 'full')}" aria-pressed="false">
             <span class="gallery-thumb" aria-hidden="true">${lookPhoto(product, shade)}</span>
             <span>${html(label)}</span>
           </button>`;
         }).join('')}</div>` : ''}
-        ${product.colors?.some((shade) => shade.crop) ? '<p class="gallery-note">لقطات الألوان مقرّبة من صورة المعرض الأصلية.</p>' : ''}
+        ${hasStudioImages ? '<p class="gallery-note">صور الألوان تصوّرات مولّدة بالاستناد إلى صورة المعرض. قد تختلف بعض التفاصيل عن القطعة الفعلية.</p>' : ''}
       </div>
       <div class="product-copy">
         <h1 id="product-title">${html(product.name)}</h1>
@@ -240,9 +237,10 @@ function renderProductPage() {
   const cover = detail.querySelector('#product-cover');
   function renderCover() {
     const shade = product.colors?.find(({ id }) => id === galleryView);
-    const label = shade?.name ?? 'الصورة الكاملة';
+    const label = shade?.name ?? originalLabel;
+    const source = shade?.studioImage ? 'تصوّر مولّد' : 'من صور كوتشال';
     cover.innerHTML = lookPhoto(product, shade, 'cover-photo') +
-      '<figcaption>من صور كوتشال <span>' + html(label) + '</span></figcaption>';
+      '<figcaption>' + source + ' <span>' + html(label) + '</span></figcaption>';
     for (const thumb of detail.querySelectorAll('[data-gallery]')) {
       thumb.setAttribute('aria-pressed', String(thumb.dataset.gallery === galleryView));
     }
