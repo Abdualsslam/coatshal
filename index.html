@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="تصفّح تشكيلة كوتشال من الأكوات والشيلان الرجالية.">
+    <meta name="theme-color" content="#f7f2e8">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="icon" type="image/jpeg" href="/images/coatshal-logo.jpg">
+    <title>كوتشال | أكوات وشيلان رجالية</title>
+  </head>
+  <body id="top">
+    <a class="skip-link" href="#collection">انتقل إلى التشكيلة</a>
+    <svg class="icon-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <symbol id="i-bag" viewBox="0 0 24 24">
+        <path d="M5 8h14l1.5 13h-17L5 8Z"/><path d="M9 10V6a3 3 0 0 1 6 0v4"/>
+      </symbol>
+      <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M19 12H5m6-6-6 6 6 6"/></symbol>
+      <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+      <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+      <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+      <symbol id="i-pin" viewBox="0 0 24 24">
+        <path d="M19 10c0 5-7 10-7 10s-7-5-7-10a7 7 0 1 1 14 0Z"/><circle cx="12" cy="10" r="2"/>
+      </symbol>
+      <symbol id="i-external" viewBox="0 0 24 24"><path d="M8 16 18 6M8 6h10v10"/></symbol>
+    </svg>
+    <header class="site-header">
+      <div class="preview-banner">معاينة المتجر <span aria-hidden="true"></span> الأسعار والطلبات تجريبية</div>
+      <div class="header-inner wrap">
+        <a class="brand" href="#top" aria-label="كوتشال، الرئيسية">
+          <span class="brand-mark" aria-hidden="true"><img src="/images/coatshal-logo.jpg" alt="" width="421" height="420"></span>
+          <span class="brand-word">كوتشال <small lang="en" dir="ltr">COATSHAL</small></span>
+        </a>
+        <nav aria-label="التنقل الرئيسي">
+          <a href="#collection">التشكيلة</a>
+          <a href="#story">عن كوتشال</a>
+        </nav>
+        <button class="bag-button" id="open-bag" type="button" aria-label="السلة، 0 قطعة">
+          <svg class="icon" aria-hidden="true"><use href="#i-bag"></use></svg>
+          <span class="bag-label">السلة</span><span class="bag-count" id="bag-count">0</span>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero wrap" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <h1 id="hero-title">كوت وشال،<br><em>على طريقتك.</em></h1>
+          <p>أكوات رجالية وشيلان بتفاصيل تستحقّ أن تراها عن قرب. اختر ما يلائمك من تشكيلة كوتشال.</p>
+          <a class="button button-dark" href="#collection">
+            تصفّح التشكيلة <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg>
+          </a>
+        </div>
+        <figure class="hero-figure">
+          <div class="hero-photo">
+            <img src="/images/coatshal-atelier.jpg" alt="كوت عنّابي بجوار صف من الأكوات في متجر كوتشال" width="526" height="696" fetchpriority="high">
+          </div>
+          <figcaption>
+            <span><svg class="icon" aria-hidden="true"><use href="#i-pin"></use></svg> من كوتشال، صنعاء</span>
+            <span lang="en" dir="ltr">COATSHAL</span>
+          </figcaption>
+        </figure>
+      </section>
+
+      <section class="collection wrap" id="collection" aria-labelledby="collection-title">
+        <div class="collection-header">
+          <div>
+            <h2 id="collection-title">تشكيلة كوتشال</h2>
+            <p>تصفّح الأكوات والشيلان، واختر القطعة والمقاس.</p>
+          </div>
+          <div class="filters" aria-label="تصفية التشكيلة">
+            <button type="button" data-filter="all" aria-pressed="true">الكل</button>
+            <button type="button" data-filter="coats" aria-pressed="false">الأكوات</button>
+            <button type="button" data-filter="shawls" aria-pressed="false">الشيلان</button>
+          </div>
+        </div>
+        <p id="catalog-status" class="catalog-status" role="status">جارٍ تحميل التشكيلة…</p>
+        <div class="product-grid" id="products"></div>
+        <noscript><p>فعّل JavaScript لتصفّح المنتجات واستخدام السلة.</p></noscript>
+      </section>
+
+      <section class="story" id="story" aria-labelledby="story-title">
+        <div class="story-inner wrap">
+          <div class="story-copy">
+            <h2 id="story-title">من صنعاء،<br>بهوية كوتشال.</h2>
+            <p>الكوت والشال في قلب التشكيلة. من اللون الهادئ إلى النقشة البارزة، لكل قطعة طريقتها في إكمال الإطلالة.</p>
+            <a class="story-link" href="https://www.facebook.com/coatshal" target="_blank" rel="noopener noreferrer">
+              كوتشال على فيسبوك <svg class="icon" aria-hidden="true"><use href="#i-external"></use></svg>
+            </a>
+          </div>
+          <img class="story-photo" src="/images/coatshal-cover.jpg" alt="غلاف كوتشال، ثلاث صور تجمع الأزياء الرجالية والفن" width="820" height="360" loading="lazy">
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer wrap">
+      <a class="brand" href="#top" aria-label="كوتشال، العودة إلى الأعلى">
+        <span class="brand-word">كوتشال <small lang="en" dir="ltr">COATSHAL</small></span>
+      </a>
+      <p>أكوات وشيلان رجالية · صنعاء، اليمن</p>
+      <a href="https://www.facebook.com/coatshal" target="_blank" rel="noopener noreferrer">فيسبوك</a>
+    </footer>
+
+    <dialog id="product-dialog" class="product-dialog" aria-labelledby="product-title">
+      <button type="button" class="icon-button product-close" data-close aria-label="إغلاق تفاصيل القطعة">
+        <svg class="icon" aria-hidden="true"><use href="#i-close"></use></svg>
+      </button>
+      <div id="product-detail"></div>
+    </dialog>
+
+    <dialog id="bag-dialog" class="bag-dialog" aria-labelledby="bag-title">
+      <div class="drawer">
+        <header class="drawer-header">
+          <h2 id="bag-title" tabindex="-1">سلة التسوّق</h2>
+          <button type="button" class="icon-button" data-close aria-label="إغلاق السلة">
+            <svg class="icon" aria-hidden="true"><use href="#i-close"></use></svg>
+          </button>
+        </header>
+        <div class="drawer-content">
+          <section id="cart-stage" aria-label="محتويات السلة">
+            <p id="cart-message" class="form-message" role="status" hidden></p>
+            <div id="cart-items"></div>
+            <div id="cart-actions" hidden>
+              <div class="totals"><span>المجموع الفرعي</span><strong id="cart-subtotal"></strong></div>
+              <p class="muted">تُحسب رسوم التوصيل بعد تحديد المنطقة.</p>
+              <button type="button" class="button button-dark full" id="start-checkout">
+                متابعة الطلب <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg>
+              </button>
+            </div>
+          </section>
+          <section id="checkout-stage" aria-label="إتمام الطلب" hidden>
+            <button type="button" class="text-button" id="back-to-cart">العودة إلى السلة</button>
+            <form id="checkout-form">
+              <fieldset>
+                <legend>بيانات التوصيل</legend>
+                <label>الاسم الكامل <input name="name" autocomplete="name" required minlength="2" maxlength="80"></label>
+                <label>رقم الجوال <input name="phone" type="tel" dir="ltr" autocomplete="tel" required minlength="7" maxlength="25"></label>
+                <label>منطقة التوصيل <select name="zoneId" required></select></label>
+                <label>العنوان بالتفصيل <textarea name="address" rows="2" autocomplete="street-address" required minlength="8" maxlength="300"></textarea></label>
+              </fieldset>
+              <fieldset>
+                <legend>طريقة الدفع</legend>
+                <label>اختر طريقة التحويل <select name="paymentId" required></select></label>
+                <p class="demo-note">هذه عملية تجريبية. استخدم بيانات وهمية ومرجعًا مثل <bdi dir="ltr">DEMO-12345</bdi>، ولا ترسل أي مبلغ.</p>
+                <label>مرجع التحويل <input name="transferReference" dir="ltr" placeholder="DEMO-12345" required minlength="3" maxlength="64"></label>
+              </fieldset>
+              <div class="summary" id="checkout-summary"></div>
+              <p id="checkout-error" class="form-message" role="alert" hidden></p>
+              <button type="submit" class="button button-dark full">تأكيد الطلب التجريبي</button>
+            </form>
+          </section>
+          <section id="receipt-stage" class="receipt" aria-label="تأكيد الطلب" hidden></section>
+        </div>
+      </div>
+    </dialog>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

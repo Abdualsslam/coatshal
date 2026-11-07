@@ -1,0 +1,24 @@
+{
+  "name": "coatshal",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "scripts": {
+    "dev": "node --watch server/index.js --dev",
+    "build": "vite build",
+    "start": "node server/index.js",
+    "test": "node --test",
+    "orders": "node server/manage-orders.js"
+  },
+  "dependencies": {
+    "@fontsource/ibm-plex-sans-arabic": "^5.3.0",
+    "@fontsource/noto-naskh-arabic": "^5.3.0",
+    "express": "^5.3.0"
+  },
+  "devDependencies": {
+    "vite": "^8.3.6"
+  }
+}
