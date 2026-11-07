@@ -10,7 +10,7 @@
     <title>كوتشال | أكوات وشيلان رجالية</title>
   </head>
   <body id="top">
-    <a class="skip-link" href="#collection">انتقل إلى التشكيلة</a>
+    <a class="skip-link" id="skip-link" href="#collection">انتقل إلى التشكيلة</a>
     <svg class="icon-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <symbol id="i-bag" viewBox="0 0 24 24">
         <path d="M5 8h14l1.5 13h-17L5 8Z"/><path d="M9 10V6a3 3 0 0 1 6 0v4"/>
@@ -28,13 +28,13 @@
     <header class="site-header">
       <div class="preview-banner">معاينة المتجر <span aria-hidden="true"></span> الأسعار والطلبات تجريبية</div>
       <div class="header-inner wrap">
-        <a class="brand" href="#top" aria-label="كوتشال، الرئيسية">
+        <a class="brand" href="/" aria-label="كوتشال، الرئيسية">
           <span class="brand-mark" aria-hidden="true"><img src="/images/coatshal-logo.jpg" alt="" width="421" height="420"></span>
           <span class="brand-lockup" aria-hidden="true"><img src="/images/coatshal-logo.jpg" alt="" width="421" height="420"></span>
         </a>
         <nav aria-label="التنقل الرئيسي">
-          <a href="#collection">التشكيلة</a>
-          <a href="#story">التنسيقات</a>
+          <a href="/#collection">التشكيلة</a>
+          <a href="/#story">التنسيقات</a>
         </nav>
         <button class="bag-button" id="open-bag" type="button" aria-label="السلة، 0 قطعة">
           <svg class="icon" aria-hidden="true"><use href="#i-bag"></use></svg>
@@ -43,7 +43,7 @@
       </div>
     </header>
 
-    <main>
+    <main id="storefront" hidden>
       <section class="hero wrap" aria-labelledby="hero-title">
         <div class="hero-copy">
           <h1 id="hero-title">على قدرِ<br><em>حضورك.</em></h1>
@@ -90,7 +90,6 @@
           </div>
           <div id="look-stage"></div>
         </div>
-        <noscript><p>فعّل JavaScript لتصفّح المنتجات واستخدام السلة.</p></noscript>
       </section>
 
       <section class="story" id="story" aria-labelledby="story-title">
@@ -117,20 +116,22 @@
       </section>
     </main>
 
+    <main id="product-page" class="product-page wrap" hidden>
+      <nav class="product-back" aria-label="مسار التصفح">
+        <a href="/#collection"><svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg> العودة إلى التشكيلة</a>
+      </nav>
+      <p id="product-status" role="status">جارٍ تحميل المنتج…</p>
+      <div id="product-detail"></div>
+    </main>
+    <noscript><p class="wrap">فعّل JavaScript لتصفّح المنتجات واستخدام السلة.</p></noscript>
+
     <footer class="site-footer wrap">
-      <a class="brand" href="#top" aria-label="كوتشال، العودة إلى الأعلى">
+      <a class="brand" href="/" aria-label="كوتشال، الرئيسية">
         <span class="brand-lockup" aria-hidden="true"><img src="/images/coatshal-logo.jpg" alt="" width="421" height="420" loading="lazy"></span>
       </a>
       <p>أكوات وشيلان رجالية · صنعاء، اليمن</p>
       <a href="https://www.facebook.com/coatshal" target="_blank" rel="noopener noreferrer">فيسبوك</a>
     </footer>
-
-    <dialog id="product-dialog" class="product-dialog" aria-labelledby="product-title">
-      <button type="button" class="icon-button product-close" data-close aria-label="إغلاق تفاصيل القطعة">
-        <svg class="icon" aria-hidden="true"><use href="#i-close"></use></svg>
-      </button>
-      <div id="product-detail"></div>
-    </dialog>
 
     <dialog id="bag-dialog" class="bag-dialog" aria-labelledby="bag-title">
       <div class="drawer">

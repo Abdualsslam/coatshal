@@ -4,11 +4,13 @@ export const catalog = {
   products: [
     {
       id: 'classic-coat', category: 'coats', name: 'الكوت الكلاسيكي',
-      description: 'كوت سادة بياقة واضحة وقصّة مستقيمة، بدرجتي الأسود والرملي.',
-      image: '/images/classic-coats.jpg', color: 'أسود', price: 28000,
+      description: 'كوت سادة بياقة واضحة وقصّة مستقيمة. استكشف درجاته كما تظهر على مِشجب كوتشال.',
+      image: '/images/classic-coats.jpg', imageSize: [600, 505], color: 'أسود', price: 28000,
       colors: [
-        { id: 'black', name: 'أسود', swatch: '#25252a' },
-        { id: 'sand', name: 'رملي', swatch: '#c6b79d' },
+        { id: 'black', name: 'أسود', swatch: '#25252a', crop: [8, 124, 244, 335] },
+        { id: 'sand', name: 'رملي', swatch: '#c6b79d', crop: [237, 128, 222, 320] },
+        { id: 'taupe', name: 'بني رمادي', swatch: '#77675b', crop: [345, 120, 186, 310] },
+        { id: 'light-grey', name: 'رمادي فاتح', swatch: '#a69e90', crop: [435, 105, 165, 300] },
       ],
       variants: [
         { id: 'm', name: 'M', stock: 8, colorId: 'black' },
@@ -16,6 +18,10 @@ export const catalog = {
         { id: 'xl', name: 'XL', stock: 6, colorId: 'black' },
         { id: 'sand-m', name: 'M', stock: 4, colorId: 'sand' },
         { id: 'sand-l', name: 'L', stock: 6, colorId: 'sand' },
+        { id: 'taupe-m', name: 'M', stock: 5, colorId: 'taupe' },
+        { id: 'taupe-l', name: 'L', stock: 4, colorId: 'taupe' },
+        { id: 'light-grey-l', name: 'L', stock: 4, colorId: 'light-grey' },
+        { id: 'light-grey-xl', name: 'XL', stock: 3, colorId: 'light-grey' },
       ],
     },
     {

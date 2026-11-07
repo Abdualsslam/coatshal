@@ -2,6 +2,7 @@ import { existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 import express from 'express';
 import { openDatabase } from './database.js';
+import { catalog } from './catalog.js';
 
 const dev = process.argv.includes('--dev');
 const dist = resolve('dist');
@@ -59,6 +60,10 @@ if (dev) {
   app.use(vite.middlewares);
 } else {
   app.use(express.static(dist));
+  app.get('/products/:id', (req, res) => {
+    const found = catalog.products.some(({ id }) => id === req.params.id);
+    res.status(found ? 200 : 404).sendFile(resolve(dist, 'index.html'));
+  });
 }
 
 const host = process.env.HOST || '127.0.0.1';

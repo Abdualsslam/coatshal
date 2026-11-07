@@ -9,7 +9,15 @@ const html = (value) => String(value).replace(/[&<>"']/g, (char) => ({
 })[char]);
 const storageKey = 'coatshal-cart-v1';
 
-const productDialog = element('product-dialog');
+const productRoute = /^\/products\/([^/]+)\/?$/.exec(location.pathname);
+const productPage = element('product-page');
+element('storefront').hidden = Boolean(productRoute);
+productPage.hidden = !productRoute;
+if (productRoute) {
+  const skipLink = element('skip-link');
+  skipLink.href = '#product-page';
+  skipLink.textContent = 'انتقل إلى تفاصيل المنتج';
+}
 const bagDialog = element('bag-dialog');
 const checkoutForm = element('checkout-form');
 const zoneSelect = checkoutForm.elements.zoneId;
@@ -24,6 +32,7 @@ let catalog;
 let filter = 'all';
 let featuredId;
 const selectedShades = new Map();
+let galleryView;
 let cart = readCart();
 let stage = 'cart';
 let request;
@@ -91,10 +100,20 @@ function shadePicker(product, color) {
 }
 
 function lookPhoto(product, color, className = '') {
-  const name = color?.name ?? product.color;
+  const name = html(color ? product.name + '، ' + color.name : 'صورة ' + product.name);
+  const crop = color?.crop;
+  const picture = crop && product.imageSize
+    ? `<svg role="img" aria-label="${name}" viewBox="${html(crop.join(' '))}" width="${crop[2]}" height="${crop[3]}" preserveAspectRatio="xMidYMid slice">
+        <image href="${html(product.image)}" width="${product.imageSize[0]}" height="${product.imageSize[1]}"/>
+      </svg>`
+    : `<img src="${html(product.image)}" alt="${name}">`;
   return `<div class="look-photo ${className}" data-tone="${html(color?.id ?? 'full')}">
-    <img src="${html(product.image)}" alt="${html([product.name, name].filter(Boolean).join('، '))}">
+    ${picture}
   </div>`;
+}
+
+function productUrl(product, colorId) {
+  return '/products/' + encodeURIComponent(product.id) + (colorId ? '?color=' + encodeURIComponent(colorId) : '');
 }
 
 async function loadCatalog() {
@@ -111,7 +130,8 @@ async function loadCatalog() {
   const changed = JSON.stringify(cart) !== JSON.stringify(reconciled);
   cart = reconciled;
   persistCart();
-  renderProducts();
+  if (productRoute) renderProductPage();
+  else renderProducts();
   renderOptions();
   if (changed) showMessage('cart-message', 'تم تحديث بعض كميات السلة حسب المخزون التجريبي المتاح.');
   return changed;
@@ -136,12 +156,13 @@ function renderProducts() {
 }
 
 function renderLook(product) {
-  const color = colorOf(product, selectedShades.get(product.id));
-  const available = product.variants.some((variant) => variant.stock && (!color || variant.colorId === color.id));
+  const shadeId = selectedShades.get(product.id);
+  const color = colorOf(product, shadeId);
+  const url = html(productUrl(product, shadeId));
   lookStage.innerHTML = `
     <article class="look-stage">
       <figure class="look-figure">
-        ${lookPhoto(product, color)}
+        <a class="look-media-link" href="${url}" aria-label="عرض ${html(product.name)}">${lookPhoto(product, color)}</a>
         <figcaption>من المِشجب <span>${html(color?.name ?? product.color)}</span></figcaption>
       </figure>
       <div class="look-copy">
@@ -149,9 +170,9 @@ function renderLook(product) {
         <p class="look-description">${html(product.description)}</p>
         ${shadePicker(product, color)}
         <p class="look-price">${money(product.price)} <span>سعر تجريبي</span></p>
-        <button class="button button-dark full" type="button" data-product="${html(product.id)}">
-          ${available ? 'اختر المقاس' : 'عرض المقاسات'} ${icon('arrow')}
-        </button>
+        <a class="button button-dark full" href="${url}">
+          عرض المنتج ${icon('arrow')}
+        </a>
       </div>
     </article>`;
 }
@@ -171,16 +192,36 @@ function renderSizes(form, product, color) {
   form.querySelector('.form-message').hidden = true;
 }
 
-function openProduct(product) {
-  let color = colorOf(product, selectedShades.get(product.id));
+function renderProductPage() {
   const detail = element('product-detail');
+  const product = catalog.products.find(({ id }) => id === productRoute[1]);
+  if (!product) {
+    showMessage('product-status', 'المنتج غير موجود.');
+    return;
+  }
+  document.title = product.name + ' | كوتشال';
+  showMessage('product-status');
+  const requested = new URLSearchParams(location.search).get('color');
+  let color = colorOf(product, requested);
+  galleryView ??= color && color.id === requested ? requested : 'full';
+  const gallery = product.colors?.length ? [null, ...product.colors] : [];
   detail.innerHTML = `
-    <div class="detail-layout">
-      ${lookPhoto(product, color, 'detail-photo')}
-      <div class="detail-copy">
-        <h2 id="product-title">${html(product.name)}</h2>
-        <p>${html(product.description)}</p>
-        <p><strong>${money(product.price)}</strong> · سعر تجريبي</p>
+    <div class="product-layout">
+      <div class="product-gallery">
+        <figure class="product-cover" id="product-cover"></figure>
+        ${gallery.length ? `<div class="gallery-strip" role="group" aria-label="صور المنتج">${gallery.map((shade) => {
+          const label = shade?.name ?? 'الصورة الكاملة';
+          return `<button type="button" data-gallery="${html(shade?.id ?? 'full')}" aria-pressed="false">
+            <span class="gallery-thumb" aria-hidden="true">${lookPhoto(product, shade)}</span>
+            <span>${html(label)}</span>
+          </button>`;
+        }).join('')}</div>` : ''}
+        ${product.colors?.some((shade) => shade.crop) ? '<p class="gallery-note">لقطات الألوان مقرّبة من صورة المعرض الأصلية.</p>' : ''}
+      </div>
+      <div class="product-copy">
+        <h1 id="product-title">${html(product.name)}</h1>
+        <p class="product-description">${html(product.description)}</p>
+        <p class="product-price"><strong>${money(product.price)}</strong><span>سعر تجريبي</span></p>
         <form>
           <div class="detail-colors">${shadePicker(product, color)}</div>
           <fieldset>
@@ -189,23 +230,52 @@ function openProduct(product) {
           </fieldset>
           <p class="form-message" role="status" hidden></p>
           <button class="button button-dark full" type="submit"></button>
+          <p class="gallery-note">المقاسات والتوفّر في هذه المعاينة تجريبيان.</p>
         </form>
       </div>
     </div>`;
 
   const form = detail.querySelector('form');
   const colors = form.querySelector('.detail-colors');
+  const cover = detail.querySelector('#product-cover');
+  function renderCover() {
+    const shade = product.colors?.find(({ id }) => id === galleryView);
+    const label = shade?.name ?? 'الصورة الكاملة';
+    cover.innerHTML = lookPhoto(product, shade, 'cover-photo') +
+      '<figcaption>من صور كوتشال <span>' + html(label) + '</span></figcaption>';
+    for (const thumb of detail.querySelectorAll('[data-gallery]')) {
+      thumb.setAttribute('aria-pressed', String(thumb.dataset.gallery === galleryView));
+    }
+  }
+
+  function selectShade(id) {
+    const shade = product.colors?.find((item) => item.id === id);
+    if (!shade) return;
+    galleryView = shade.id;
+    if (color?.id !== shade.id) {
+      color = shade;
+      colors.innerHTML = shadePicker(product, color);
+      renderSizes(form, product, color);
+    }
+    history.replaceState(history.state, '', productUrl(product, shade.id));
+    renderCover();
+  }
+
   renderSizes(form, product, color);
+  renderCover();
   colors.addEventListener('click', (event) => {
     const button = event.target.closest('[data-shade]');
-    if (!button || button.dataset.shade === color?.id) return;
-    color = colorOf(product, button.dataset.shade);
-    selectedShades.set(product.id, color.id);
-    colors.innerHTML = shadePicker(product, color);
-    detail.querySelector('.detail-photo').outerHTML = lookPhoto(product, color, 'detail-photo');
-    renderSizes(form, product, color);
-    renderLook(product);
-    colors.querySelector('[aria-pressed="true"]').focus();
+    if (!button) return;
+    selectShade(button.dataset.shade);
+    colors.querySelector('[aria-pressed="true"]').focus({ preventScroll: true });
+  });
+  detail.querySelector('.gallery-strip')?.addEventListener('click', (event) => {
+    const thumb = event.target.closest('[data-gallery]');
+    if (!thumb) return;
+    if (thumb.dataset.gallery === 'full') {
+      galleryView = 'full';
+      renderCover();
+    } else selectShade(thumb.dataset.gallery);
   });
   form.addEventListener('submit', (event) => {
     event.preventDefault();
@@ -222,10 +292,9 @@ function openProduct(product) {
     }
     updateCart({ productId: product.id, variantId }, quantity);
     showMessage('cart-message');
-    productDialog.close();
+    stage = 'cart';
     openBag();
   });
-  productDialog.showModal();
 }
 
 function cartSubtotal() {
@@ -237,7 +306,7 @@ function renderCart() {
   element('cart-actions').hidden = items.length === 0;
   if (!items.length) {
     cartItems.innerHTML = catalog
-      ? '<div class="empty"><p>سلتك فارغة.</p><a class="button button-outline" href="#collection" data-close>تصفّح التشكيلة</a></div>'
+      ? '<div class="empty"><p>سلتك فارغة.</p><a class="button button-outline" href="/#collection" data-close>تصفّح التشكيلة</a></div>'
       : '<p class="empty">السلة بانتظار تحميل التشكيلة.</p>';
     return;
   }
@@ -309,7 +378,7 @@ function renderReceipt(receipt) {
     <p>${status} · ${money(receipt.total)}</p>
     <p class="receipt-reference">رقم الطلب <strong><bdi dir="ltr">${html(receipt.reference)}</bdi></strong></p>
     <p class="muted">هذا طلب للمعاينة فقط.</p>
-    <a class="button button-outline" href="#collection" data-close>العودة إلى التشكيلة</a>`;
+    <a class="button button-outline" href="/#collection" data-close>العودة إلى التشكيلة</a>`;
 }
 
 function applyFilter(category) {
@@ -353,20 +422,11 @@ lookStage.addEventListener('click', (event) => {
     renderLook(product);
     lookStage.querySelector('[aria-pressed="true"]').focus();
   }
-  if (event.target.closest('[data-product]')) openProduct(product);
 });
 
 element('open-bag').addEventListener('click', openBag);
-for (const dialog of [productDialog, bagDialog]) {
-  dialog.addEventListener('click', (event) => {
-    if (event.target.closest('[data-close]') || event.target === dialog) {
-      if (dialog === bagDialog && submitting) return;
-      dialog.close();
-    }
-  });
-}
-productDialog.addEventListener('close', () => {
-  if (!bagDialog.open) lookStage.querySelector('[data-product]')?.focus({ preventScroll: true });
+bagDialog.addEventListener('click', (event) => {
+  if (!submitting && (event.target.closest('[data-close]') || event.target === bagDialog)) bagDialog.close();
 });
 bagDialog.addEventListener('cancel', (event) => {
   if (submitting) event.preventDefault();
@@ -447,8 +507,18 @@ checkoutForm.addEventListener('submit', async (event) => {
 });
 
 persistCart();
-loadCatalog().then(() => {
-  if (bagDialog.open && stage === 'cart') renderCart();
-}).catch(() => {
-  showMessage('catalog-status', 'تعذّر تحميل التشكيلة. أعد تحميل الصفحة للمحاولة مرة أخرى.');
+function refreshPage() {
+  return loadCatalog().then(() => {
+    if (bagDialog.open && stage === 'cart') renderCart();
+  }).catch(() => {
+    showMessage(productRoute ? 'product-status' : 'catalog-status', 'تعذّر التحميل. أعد تحميل الصفحة للمحاولة مرة أخرى.');
+  });
+}
+
+window.addEventListener('pageshow', (event) => {
+  if (!event.persisted) return;
+  cart = readCart();
+  persistCart();
+  refreshPage();
 });
+refreshPage();
