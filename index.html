@@ -23,7 +23,6 @@
       <symbol id="i-pin" viewBox="0 0 24 24">
         <path d="M19 10c0 5-7 10-7 10s-7-5-7-10a7 7 0 1 1 14 0Z"/><circle cx="12" cy="10" r="2"/>
       </symbol>
-      <symbol id="i-external" viewBox="0 0 24 24"><path d="M8 16 18 6M8 6h10v10"/></symbol>
       <symbol id="i-hanger" viewBox="0 0 24 24"><path d="M9.5 6.5a2.5 2.5 0 1 1 4.2 1.8L12 10v2m0 0L3.7 17a1.1 1.1 0 0 0 .6 2h15.4a1.1 1.1 0 0 0 .6-2L12 12Z"/></symbol>
     </svg>
     <header class="site-header">
@@ -35,7 +34,7 @@
         </a>
         <nav aria-label="التنقل الرئيسي">
           <a href="#collection">التشكيلة</a>
-          <a href="#story">عن كوتشال</a>
+          <a href="#story">التنسيقات</a>
         </nav>
         <button class="bag-button" id="open-bag" type="button" aria-label="السلة، 0 قطعة">
           <svg class="icon" aria-hidden="true"><use href="#i-bag"></use></svg>
@@ -74,8 +73,8 @@
       <section class="collection wrap" id="collection" aria-labelledby="collection-title">
         <div class="collection-header">
           <div>
-            <h2 id="collection-title">على المِشجب</h2>
-            <p>اختر قطعة لترى قصّتها ودرجات ألوانها عن قرب.</p>
+            <h2 id="collection-title" tabindex="-1">على المِشجب</h2>
+            <p>أكوات سادة وملوّنة، وشيلان بنقشات من صور كوتشال.</p>
           </div>
           <div class="filters" aria-label="تصفية التشكيلة">
             <button type="button" data-filter="all" aria-pressed="true">الكل</button>
@@ -97,13 +96,23 @@
       <section class="story" id="story" aria-labelledby="story-title">
         <div class="story-inner wrap">
           <div class="story-copy">
-            <h2 id="story-title">الكوت والشال،<br>في صورة واحدة.</h2>
-            <p>في صور كوتشال، تظهر القطعتان إلى جوار الفن اليمني. قصّة الكوت ونقشة الشال، كلٌّ بتفاصيله في الإطلالة نفسها.</p>
-            <a class="story-link" href="https://www.facebook.com/coatshal" target="_blank" rel="noopener noreferrer">
-              كوتشال على فيسبوك <svg class="icon" aria-hidden="true"><use href="#i-external"></use></svg>
-            </a>
+            <h2 id="story-title">كوت وشال،<br>من تنسيقات المعرض.</h2>
+            <p>في هذه اللقطة من كوتشال، يظهر شال عاجي مزخرف بجوار الأكوات الملوّنة. اختَر قطعة لتبدأ منها تنسيقك.</p>
+            <div class="outfit-pieces">
+              <a href="#collection" data-show-category="coats" data-show-product="color-coat" data-show-shade="indigo">
+                <span><strong>الأكوات الملوّنة</strong><small>ابدأ بالكوت النيلي</small></span>
+                <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg>
+              </a>
+              <a href="#collection" data-show-category="shawls">
+                <span><strong>الشيلان المزخرفة</strong><small>استكشف النقشات العاجية</small></span>
+                <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg>
+              </a>
+            </div>
           </div>
-          <img class="story-photo" src="/images/coatshal-cover.jpg" alt="غلاف كوتشال، ثلاث صور تجمع الأزياء الرجالية والفن" width="820" height="360" loading="lazy">
+          <figure class="outfit-figure">
+            <img src="/images/colored-coats.jpg" alt="أكوات نيليّة وبرقوقيّة على مِشجب كوتشال وبجوارها شيلان عاجية مزخرفة" width="600" height="505" loading="lazy">
+            <figcaption>لقطة من معرض كوتشال <span>كوت وشال</span></figcaption>
+          </figure>
         </div>
       </section>
     </main>

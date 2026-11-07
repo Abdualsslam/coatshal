@@ -312,14 +312,27 @@ function renderReceipt(receipt) {
     <a class="button button-outline" href="#collection" data-close>العودة إلى التشكيلة</a>`;
 }
 
-document.querySelector('.filters').addEventListener('click', (event) => {
-  const button = event.target.closest('[data-filter]');
-  if (!button) return;
-  filter = button.dataset.filter;
+function applyFilter(category) {
+  filter = category;
   for (const option of document.querySelectorAll('[data-filter]')) {
-    option.setAttribute('aria-pressed', String(option === button));
+    option.setAttribute('aria-pressed', String(option.dataset.filter === filter));
   }
   if (catalog) renderProducts();
+}
+
+document.querySelector('.filters').addEventListener('click', (event) => {
+  const button = event.target.closest('[data-filter]');
+  if (button) applyFilter(button.dataset.filter);
+});
+
+document.querySelector('.outfit-pieces').addEventListener('click', (event) => {
+  const link = event.target.closest('[data-show-category]');
+  if (!link || event.defaultPrevented || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+  const { showCategory, showProduct, showShade } = link.dataset;
+  if (showProduct) featuredId = showProduct;
+  if (showProduct && showShade) selectedShades.set(showProduct, showShade);
+  applyFilter(showCategory);
+  element('collection-title').focus({ preventScroll: true });
 });
 
 lookList.addEventListener('click', (event) => {

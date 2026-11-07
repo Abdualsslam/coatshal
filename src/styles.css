@@ -212,13 +212,28 @@ bdi, .bag-count { font-variant-numeric: tabular-nums; }
 .look-price span { color: var(--muted); font-size: .82rem; font-weight: 500; }
 
 .story { background: var(--ink); color: #fcf0db; }
-.story-inner { display: grid; grid-template-columns: minmax(0, .75fr) minmax(0, 1.25fr); align-items: center; gap: clamp(25px, 6vw, 90px); padding-block: clamp(38px, 5vw, 76px); }
+.story-inner { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); align-items: center; gap: clamp(25px, 6vw, 90px); padding-block: clamp(38px, 5vw, 76px); }
 .story h2 { font-size: clamp(2.55rem, 4vw, 3.7rem); }
-.story p { max-width: 36ch; line-height: 1.8; margin-block: 12px 20px; color: #e2ccb1; }
-.story-link { display: inline-flex; align-items: center; gap: 7px; color: #f4d6a3; min-height: 44px; }
-.story-link:hover { color: #fff7e8; }
+.story p { max-width: 42ch; line-height: 1.65; margin-block: 14px 22px; color: #e2ccb1; }
+.outfit-pieces { border-block-start: 1px solid #655044; max-width: 420px; }
+.outfit-pieces a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 8px;
+  border-block-end: 1px solid #655044;
+  text-decoration: none;
+}
+.outfit-pieces a:hover { background: #392a22; }
+.outfit-pieces strong, .outfit-pieces small { display: block; }
+.outfit-pieces small { color: #e2ccb1; }
+.outfit-pieces .icon { color: var(--brass); }
 .story a:focus-visible { outline-color: #f4d6a3; }
-.story-photo { width: 100%; height: auto; }
+.outfit-figure { border: 1px solid #655044; padding: 8px 8px 0; }
+.outfit-figure img { width: 100%; height: auto; max-height: 490px; object-fit: cover; object-position: center 56%; }
+.outfit-figure figcaption { display: flex; justify-content: space-between; gap: 10px; padding-block: 7px; color: #e2ccb1; font-size: .85rem; }
+.outfit-figure figcaption span { color: var(--brass); }
 .site-footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-block: 27px; color: var(--muted); font-size: .88rem; }
 .site-footer .brand { color: var(--ink); }
 
@@ -332,7 +347,8 @@ legend { padding: 0; margin-block-end: 7px; font-weight: 600; }
   .look-figure { min-height: clamp(255px, 67vw, 370px); }
   .look-copy { padding: 16px; }
   .story-inner { grid-template-columns: 1fr; gap: 18px; }
-  .story p { margin-block: 7px 9px; }
+  .story p { margin-block: 8px 15px; }
+  .outfit-figure { grid-row: 1; }
   .site-footer { flex-wrap: wrap; }
 }
 

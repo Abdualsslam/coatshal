@@ -4,7 +4,7 @@ export const catalog = {
   products: [
     {
       id: 'classic-coat', category: 'coats', name: 'الكوت الكلاسيكي',
-      description: 'ياقة واضحة وقصّة مستقيمة. جرّب الأسود، أو درجة رملية تُظهر خطوط القصّة.',
+      description: 'كوت سادة بياقة واضحة وقصّة مستقيمة، بدرجتي الأسود والرملي.',
       image: '/images/classic-coats.jpg', color: 'أسود', price: 28000,
       colors: [
         { id: 'black', name: 'أسود', swatch: '#25252a' },
@@ -20,13 +20,13 @@ export const catalog = {
     },
     {
       id: 'embroidered-shawl', category: 'shawls', name: 'الشال المزخرف',
-      description: 'نقشة ملوّنة على أرضية عاجية، مع حواف مطرّزة.',
+      description: 'أرضية عاجية ونقشات ملوّنة تتوزع على الحواف.',
       image: '/images/patterned-shawls.jpg', color: 'عاجي', price: 16000,
       variants: [{ id: 'one', name: 'مقاس موحّد', stock: 12 }],
     },
     {
       id: 'color-coat', category: 'coats', name: 'كوت الألوان',
-      description: 'قصّة كلاسيكية بدرجتين واضحتين على المِشجب، النيلي والبرقوقي.',
+      description: 'اختر النيلي أو البرقوقي من الأكوات الظاهرة بجوار الشيلان المزخرفة في صورة المعرض.',
       image: '/images/colored-coats.jpg', color: 'نيلي', price: 29500,
       colors: [
         { id: 'indigo', name: 'نيلي', swatch: '#3c5194' },
