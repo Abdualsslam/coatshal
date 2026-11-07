@@ -17,9 +17,13 @@ const paymentSelect = checkoutForm.elements.paymentId;
 const submitOrder = checkoutForm.querySelector('[type="submit"]');
 const cartItems = element('cart-items');
 const products = element('products');
+const lookList = element('look-list');
+const lookStage = element('look-stage');
 
 let catalog;
 let filter = 'all';
+let featuredId;
+const selectedShades = new Map();
 let cart = readCart();
 let stage = 'cart';
 let request;
@@ -69,6 +73,30 @@ function showMessage(id, message = '') {
   target.hidden = !message;
 }
 
+function colorOf(product, id) {
+  return product.colors?.find((color) => color.id === id) ?? product.colors?.[0];
+}
+
+function shadePicker(product, color) {
+  if (!product.colors?.length) return '<p class="look-shade">' + html(product.color ?? '') + '</p>';
+  return `
+    <fieldset class="shade-picker">
+      <legend>اللون <strong>${html(color.name)}</strong></legend>
+      <div class="swatches">${product.colors.map((shade) => `
+        <button class="swatch" type="button" data-shade="${html(shade.id)}"
+          aria-label="${html(shade.name)}" aria-pressed="${shade.id === color.id}">
+          <svg viewBox="0 0 30 30" aria-hidden="true"><circle cx="15" cy="15" r="14" fill="${html(shade.swatch)}"/></svg>
+        </button>`).join('')}</div>
+    </fieldset>`;
+}
+
+function lookPhoto(product, color, className = '') {
+  const name = color?.name ?? product.color;
+  return `<div class="look-photo ${className}" data-tone="${html(color?.id ?? 'full')}">
+    <img src="${html(product.image)}" alt="${html([product.name, name].filter(Boolean).join('، '))}">
+  </div>`;
+}
+
 async function loadCatalog() {
   const response = await fetch('/api/catalog', { cache: 'no-store' });
   if (!response.ok) throw new Error('Catalog unavailable');
@@ -92,51 +120,98 @@ async function loadCatalog() {
 function renderProducts() {
   const matches = catalog.products.filter((product) => filter === 'all' || product.category === filter);
   showMessage('catalog-status', matches.length ? '' : 'لا توجد قطع في هذه الفئة حاليًا.');
-  products.innerHTML = matches.map((product) => `
-    <article class="product-card">
-      <button class="product-trigger" type="button" data-product="${html(product.id)}" aria-label="عرض ${html(product.name)}">
-        <span class="card-image"><img src="${html(product.image)}" alt="" width="300" height="320" loading="lazy"></span>
-        <span class="card-meta">
-          <span><span class="card-title">${html(product.name)}</span><span class="card-color">${html(product.color)}</span></span>
-          <span class="card-price">${money(product.price)}</span>
-        </span>
-      </button>
-    </article>`).join('');
+  products.hidden = matches.length === 0;
+  if (!matches.length) return;
+  const active = matches.find(({ id }) => id === featuredId) ?? matches[0];
+  featuredId = active.id;
+  lookList.innerHTML = matches.map((product) => `
+    <button class="look-tab" type="button" data-look="${html(product.id)}" aria-pressed="${product.id === featuredId}">
+      <span class="look-thumb"><img src="${html(product.image)}" alt="" width="80" height="86" loading="lazy"></span>
+      <span class="look-tab-text"><strong>${html(product.name)}</strong>
+        <span>${product.category === 'coats' ? 'الأكوات' : 'الشيلان'}</span>
+      </span>
+      ${icon('arrow')}
+    </button>`).join('');
+  renderLook(active);
+}
+
+function renderLook(product) {
+  const color = colorOf(product, selectedShades.get(product.id));
+  const available = product.variants.some((variant) => variant.stock && (!color || variant.colorId === color.id));
+  lookStage.innerHTML = `
+    <article class="look-stage">
+      <figure class="look-figure">
+        ${lookPhoto(product, color)}
+        <figcaption>من المِشجب <span>${html(color?.name ?? product.color)}</span></figcaption>
+      </figure>
+      <div class="look-copy">
+        <h3>${html(product.name)}</h3>
+        <p class="look-description">${html(product.description)}</p>
+        ${shadePicker(product, color)}
+        <p class="look-price">${money(product.price)} <span>سعر تجريبي</span></p>
+        <button class="button button-dark full" type="button" data-product="${html(product.id)}">
+          ${available ? 'اختر المقاس' : 'عرض المقاسات'} ${icon('arrow')}
+        </button>
+      </div>
+    </article>`;
+}
+
+function renderSizes(form, product, color) {
+  const sizes = product.variants.filter((variant) => !color || variant.colorId === color.id);
+  const available = sizes.some((variant) => variant.stock > 0);
+  form.querySelector('.variant-list').innerHTML = sizes.map((variant) => `
+    <label class="variant">
+      <input type="radio" name="variant" value="${html(variant.id)}" required
+        ${variant.stock ? '' : 'disabled'} ${sizes.length === 1 && variant.stock ? 'checked' : ''}>
+      <span>${html(variant.name)}</span>
+    </label>`).join('');
+  const submit = form.querySelector('[type="submit"]');
+  submit.disabled = !available;
+  submit.innerHTML = (available ? 'أضف إلى السلة' : 'نفدت الكمية') + ' ' + icon('bag');
+  form.querySelector('.form-message').hidden = true;
 }
 
 function openProduct(product) {
-  const available = product.variants.some((variant) => variant.stock > 0);
-  element('product-detail').innerHTML = `
+  let color = colorOf(product, selectedShades.get(product.id));
+  const detail = element('product-detail');
+  detail.innerHTML = `
     <div class="detail-layout">
-      <img class="detail-image" src="${html(product.image)}" alt="${html(product.name)}">
+      ${lookPhoto(product, color, 'detail-photo')}
       <div class="detail-copy">
         <h2 id="product-title">${html(product.name)}</h2>
         <p>${html(product.description)}</p>
         <p><strong>${money(product.price)}</strong> · سعر تجريبي</p>
         <form>
+          <div class="detail-colors">${shadePicker(product, color)}</div>
           <fieldset>
             <legend>اختر المقاس</legend>
-            <div class="variant-list">${product.variants.map((variant) => `
-              <label class="variant">
-                <input type="radio" name="variant" value="${html(variant.id)}" required
-                  ${variant.stock ? '' : 'disabled'} ${product.variants.length === 1 && variant.stock ? 'checked' : ''}>
-                <span>${html(variant.name)}</span>
-              </label>`).join('')}</div>
+            <div class="variant-list"></div>
           </fieldset>
           <p class="form-message" role="status" hidden></p>
-          <button class="button button-dark full" type="submit" ${available ? '' : 'disabled'}>
-            ${available ? 'أضف إلى السلة' : 'نفدت الكمية'} ${icon('bag')}
-          </button>
+          <button class="button button-dark full" type="submit"></button>
         </form>
       </div>
     </div>`;
 
-  const form = element('product-detail').querySelector('form');
+  const form = detail.querySelector('form');
+  const colors = form.querySelector('.detail-colors');
+  renderSizes(form, product, color);
+  colors.addEventListener('click', (event) => {
+    const button = event.target.closest('[data-shade]');
+    if (!button || button.dataset.shade === color?.id) return;
+    color = colorOf(product, button.dataset.shade);
+    selectedShades.set(product.id, color.id);
+    colors.innerHTML = shadePicker(product, color);
+    detail.querySelector('.detail-photo').outerHTML = lookPhoto(product, color, 'detail-photo');
+    renderSizes(form, product, color);
+    renderLook(product);
+    colors.querySelector('[aria-pressed="true"]').focus();
+  });
   form.addEventListener('submit', (event) => {
     event.preventDefault();
     const variantId = new FormData(form).get('variant');
     const variant = product.variants.find(({ id }) => id === variantId);
-    if (!variant?.stock) return;
+    if (!variant?.stock || (color && variant.colorId !== color.id)) return;
     const current = cart.find((line) => line.productId === product.id && line.variantId === variantId);
     const quantity = (current?.quantity ?? 0) + 1;
     if (quantity > Math.min(variant.stock, 20)) {
@@ -171,7 +246,7 @@ function renderCart() {
       <img src="${html(product.image)}" alt="" width="78" height="89">
       <div>
         <h3>${html(product.name)}</h3>
-        <p>${html(variant.name)} · ${money(product.price * quantity)}</p>
+        <p>${[colorOf(product, variant.colorId)?.name ?? product.color, variant.name].filter(Boolean).map(html).join(' · ')} · ${money(product.price * quantity)}</p>
         <div class="cart-item-controls">
           <div class="quantity" role="group" aria-label="كمية ${html(product.name)}">
             <button type="button" data-quantity="minus" data-line="${index}" aria-label="تقليل الكمية" ${quantity === 1 ? 'disabled' : ''}>${icon('minus')}</button>
@@ -247,10 +322,25 @@ document.querySelector('.filters').addEventListener('click', (event) => {
   if (catalog) renderProducts();
 });
 
-products.addEventListener('click', (event) => {
-  const trigger = event.target.closest('[data-product]');
-  const product = catalog?.products.find(({ id }) => id === trigger?.dataset.product);
-  if (product) openProduct(product);
+lookList.addEventListener('click', (event) => {
+  const trigger = event.target.closest('[data-look]');
+  if (!trigger || trigger.dataset.look === featuredId) return;
+  featuredId = trigger.dataset.look;
+  for (const button of lookList.querySelectorAll('[data-look]')) {
+    button.setAttribute('aria-pressed', String(button === trigger));
+  }
+  renderLook(catalog.products.find(({ id }) => id === featuredId));
+});
+
+lookStage.addEventListener('click', (event) => {
+  const product = catalog.products.find(({ id }) => id === featuredId);
+  const shade = event.target.closest('[data-shade]');
+  if (shade && shade.getAttribute('aria-pressed') === 'false') {
+    selectedShades.set(product.id, shade.dataset.shade);
+    renderLook(product);
+    lookStage.querySelector('[aria-pressed="true"]').focus();
+  }
+  if (event.target.closest('[data-product]')) openProduct(product);
 });
 
 element('open-bag').addEventListener('click', openBag);
@@ -262,6 +352,9 @@ for (const dialog of [productDialog, bagDialog]) {
     }
   });
 }
+productDialog.addEventListener('close', () => {
+  if (!bagDialog.open) lookStage.querySelector('[data-product]')?.focus({ preventScroll: true });
+});
 bagDialog.addEventListener('cancel', (event) => {
   if (submitting) event.preventDefault();
 });

@@ -4,11 +4,18 @@ export const catalog = {
   products: [
     {
       id: 'classic-coat', category: 'coats', name: 'الكوت الكلاسيكي',
-      description: 'قصّة مستقيمة وياقة كلاسيكية بتفاصيل هادئة.',
+      description: 'ياقة واضحة وقصّة مستقيمة. جرّب الأسود، أو درجة رملية تُظهر خطوط القصّة.',
       image: '/images/classic-coats.jpg', color: 'أسود', price: 28000,
+      colors: [
+        { id: 'black', name: 'أسود', swatch: '#25252a' },
+        { id: 'sand', name: 'رملي', swatch: '#c6b79d' },
+      ],
       variants: [
-        { id: 'm', name: 'M', stock: 8 }, { id: 'l', name: 'L', stock: 10 },
-        { id: 'xl', name: 'XL', stock: 6 },
+        { id: 'm', name: 'M', stock: 8, colorId: 'black' },
+        { id: 'l', name: 'L', stock: 10, colorId: 'black' },
+        { id: 'xl', name: 'XL', stock: 6, colorId: 'black' },
+        { id: 'sand-m', name: 'M', stock: 4, colorId: 'sand' },
+        { id: 'sand-l', name: 'L', stock: 6, colorId: 'sand' },
       ],
     },
     {
@@ -18,12 +25,19 @@ export const catalog = {
       variants: [{ id: 'one', name: 'مقاس موحّد', stock: 12 }],
     },
     {
-      id: 'color-coat', category: 'coats', name: 'الكوت النيلي',
-      description: 'لون نيلي بارز مع ياقة وأزرار بتنسيق كلاسيكي.',
+      id: 'color-coat', category: 'coats', name: 'كوت الألوان',
+      description: 'قصّة كلاسيكية بدرجتين واضحتين على المِشجب، النيلي والبرقوقي.',
       image: '/images/colored-coats.jpg', color: 'نيلي', price: 29500,
+      colors: [
+        { id: 'indigo', name: 'نيلي', swatch: '#3c5194' },
+        { id: 'plum', name: 'برقوقي', swatch: '#523c51' },
+      ],
       variants: [
-        { id: 'm', name: 'M', stock: 6 }, { id: 'l', name: 'L', stock: 9 },
-        { id: 'xl', name: 'XL', stock: 5 },
+        { id: 'm', name: 'M', stock: 6, colorId: 'indigo' },
+        { id: 'l', name: 'L', stock: 9, colorId: 'indigo' },
+        { id: 'xl', name: 'XL', stock: 5, colorId: 'indigo' },
+        { id: 'plum-l', name: 'L', stock: 5, colorId: 'plum' },
+        { id: 'plum-xl', name: 'XL', stock: 3, colorId: 'plum' },
       ],
     },
     {

@@ -3,6 +3,7 @@ import { mkdtempSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { test } from 'node:test';
+import { catalog as demoCatalog } from '../server/catalog.js';
 import { createOrderStore } from '../server/order-store.js';
 
 const catalog = {
@@ -73,4 +74,26 @@ test('reviews an order and returns stock once when a transfer is rejected', (t) 
   assert.equal(store.review(receipt.reference, 'reject'), false);
   assert.equal(store.list()[0].status, 'transfer_rejected');
   assert.equal(store.catalog().products[0].variants[0].stock, 2);
+});
+
+test('preserves the original cart variant and reserves each color independently', (t) => {
+  const store = createOrderStore(':memory:', demoCatalog);
+  t.after(() => store.close());
+  const stock = (id) => store.catalog().products[0].variants.find((variant) => variant.id === id)?.stock;
+  const sandBefore = stock('sand-m');
+  assert.ok(sandBefore > 0);
+  const blackBefore = stock('m');
+
+  store.place({
+    ...orderInput, zoneId: 'sanaa', expectedTotal: 57500, lines: [
+      { productId: 'classic-coat', variantId: 'm', quantity: 1 },
+      { productId: 'classic-coat', variantId: 'sand-m', quantity: 1 },
+    ],
+  });
+  assert.equal(stock('m'), blackBefore - 1);
+  assert.equal(stock('sand-m'), sandBefore - 1);
+  assert.equal(stock('sand-l'), 6);
+  assert.deepEqual(store.list()[0].lines.map(({ color, variant }) => [color, variant]), [
+    ['أسود', 'M'], ['رملي', 'M'],
+  ]);
 });

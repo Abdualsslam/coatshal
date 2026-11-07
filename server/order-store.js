@@ -49,7 +49,8 @@ function normalize(input, catalog) {
     const stockKey = product.id + '/' + variant.id;
     if (variants.has(stockKey)) fail('invalid_checkout');
     variants.add(stockKey);
-    return { stockKey, product: product.name, variant: variant.name, quantity, price: product.price };
+    const color = product.colors?.find(({ id }) => id === variant.colorId)?.name ?? product.color;
+    return { stockKey, product: product.name, variant: variant.name, color, quantity, price: product.price };
   });
   const subtotal = lines.reduce((sum, line) => sum + line.price * line.quantity, 0);
   const total = subtotal + zone.fee;
