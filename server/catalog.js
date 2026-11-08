@@ -7,10 +7,10 @@ export const catalog = {
       description: 'كوت سادة بياقة واضحة وقصّة مستقيمة. قارن درجاته واختر اللون الذي يناسب إطلالتك.',
       image: '/images/classic-coats.jpg', color: 'أسود', price: 28000,
       colors: [
-        { id: 'black', name: 'أسود', swatch: '#25252a', studioImage: '/images/classic-coat/black.jpg' },
-        { id: 'sand', name: 'رملي', swatch: '#c6b79d', studioImage: '/images/classic-coat/sand.jpg' },
-        { id: 'taupe', name: 'بني رمادي', swatch: '#77675b', studioImage: '/images/classic-coat/taupe.jpg' },
-        { id: 'light-grey', name: 'رمادي فاتح', swatch: '#a69e90', studioImage: '/images/classic-coat/light-grey.jpg' },
+        { id: 'black', name: 'أسود', swatch: '#25252a', studioImage: '/images/classic-coat/black.jpg', rackFront: '/images/classic-coat/rack/black-front.png', rackBack: '/images/classic-coat/rack/black-back.png' },
+        { id: 'sand', name: 'رملي', swatch: '#c6b79d', studioImage: '/images/classic-coat/sand.jpg', rackFront: '/images/classic-coat/rack/sand-front.png', rackBack: '/images/classic-coat/rack/sand-back.png' },
+        { id: 'taupe', name: 'بني رمادي', swatch: '#77675b', studioImage: '/images/classic-coat/taupe.jpg', rackFront: '/images/classic-coat/rack/taupe-front.png', rackBack: '/images/classic-coat/rack/taupe-back.png' },
+        { id: 'light-grey', name: 'رمادي فاتح', swatch: '#a69e90', studioImage: '/images/classic-coat/light-grey.jpg', rackFront: '/images/classic-coat/rack/light-grey-front.png', rackBack: '/images/classic-coat/rack/light-grey-back.png' },
       ],
       variants: [
         { id: 'm', name: 'M', stock: 8, colorId: 'black' },

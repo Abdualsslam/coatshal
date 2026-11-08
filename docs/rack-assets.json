@@ -1,0 +1,99 @@
+{
+  "purpose": "Conceptual demo imagery. Integrated wooden hangers and brass hooks follow the shop reference photograph. Rear views are inferred, not verified product photographs.",
+  "assets": [
+    {
+      "asset": "public/images/classic-coat/rack/black-front.png",
+      "references": [
+        "public/images/classic-coat/black.jpg",
+        "public/images/classic-coats.jpg"
+      ],
+      "generatedFile": "exec-f3624677-9680-4eb2-b69b-a88a2577bafc.png",
+      "tool": "built-in image_gen",
+      "transparentBackground": true,
+      "prompt": "Use case: compositing. Asset type: full garment on its real wooden hanger, transparent PNG for the Coatshal store.\nInput 1 is the coat to preserve: exact black fabric, tailoring, gold lapel pin, dark buttons, lining, full sleeves, entire bottom hem.\nInput 2 is the REQUIRED hanger reference, a real close photo from this shop. Recreate that SAME broad curved dark walnut hanger with a thick rectangular curved central wooden block, small gold Coatshal branding \"كوتشال\" above \"COATSHAL\", thick flat brass J-hook, and shoulders naturally INSIDE the jacket. The wooden center block is visible inside/above the collar. The hanger MUST physically support the garment from inside its shoulders as in input 2, not sit floating above it. No thin wire hanger, no triangular illustrated hanger, no long thin stem or string between jacket and hanger.\nPhotorealistic isolated full front view of ONE coat, on ONE realistic shop hanger, with a subtle natural drape. Camera almost directly from front, no strong perspective. Whole subject centered in a square transparent canvas: top of brass hook at 3% of canvas height; broad branded wood around 12-19%; coat collar starts around 17%; coat ends around 95%; coat width about 68%. Hook top centered at x=50%. Render no rack/bar at all, since the website supplies the rail.\nKeep the jacket complete and color-faithful. Realistic wood grain, brushed brass and textile. Actual transparent alpha everywhere outside hook, hanger and coat, including gaps. No backdrop, no ground, no shadows on the background, no extra garments, no collage or labels."
+    },
+    {
+      "asset": "public/images/classic-coat/rack/sand-front.png",
+      "references": [
+        "public/images/classic-coat/sand.jpg",
+        "public/images/classic-coats.jpg"
+      ],
+      "generatedFile": "exec-0b4edb83-ee78-4223-bbd9-f4ef35f5e4b6.png",
+      "tool": "built-in image_gen",
+      "transparentBackground": true,
+      "prompt": "Use case: compositing. Asset type: full garment on its real wooden hanger, transparent PNG for the Coatshal store.\nInput 1 is the coat to preserve: exact sand fabric, tailoring, gold lapel pin, dark buttons, lining, full sleeves, entire bottom hem.\nInput 2 is the REQUIRED hanger reference, a real close photo from this shop. Recreate that SAME broad curved dark walnut hanger with a thick rectangular curved central wooden block, small gold Coatshal branding \"كوتشال\" above \"COATSHAL\", thick flat brass J-hook, and shoulders naturally INSIDE the jacket. The wooden center block is visible inside/above the collar. The hanger MUST physically support the garment from inside its shoulders as in input 2, not sit floating above it. No thin wire hanger, no triangular illustrated hanger, no long thin stem or string between jacket and hanger.\nPhotorealistic isolated full front view of ONE coat, on ONE realistic shop hanger, with a subtle natural drape. Camera almost directly from front, no strong perspective. Whole subject centered in a square transparent canvas: top of brass hook at 3% of canvas height; broad branded wood around 12-19%; coat collar starts around 17%; coat ends around 95%; coat width about 68%. Hook top centered at x=50%. Render no rack/bar at all, since the website supplies the rail.\nKeep the jacket complete and color-faithful. Realistic wood grain, brushed brass and textile. Actual transparent alpha everywhere outside hook, hanger and coat, including gaps. No backdrop, no ground, no shadows on the background, no extra garments, no collage or labels."
+    },
+    {
+      "asset": "public/images/classic-coat/rack/taupe-front.png",
+      "references": [
+        "public/images/classic-coat/taupe.jpg",
+        "public/images/classic-coats.jpg"
+      ],
+      "generatedFile": "exec-13b8bc51-8fbc-47a5-a2e6-e9a299e68c23.png",
+      "tool": "built-in image_gen",
+      "transparentBackground": true,
+      "prompt": "Use case: compositing. Asset type: full garment on its real wooden hanger, transparent PNG for the Coatshal store.\nInput 1 is the coat to preserve: exact taupe fabric, tailoring, gold lapel pin, dark buttons, lining, full sleeves, entire bottom hem.\nInput 2 is the REQUIRED hanger reference, a real close photo from this shop. Recreate that SAME broad curved dark walnut hanger with a thick rectangular curved central wooden block, small gold Coatshal branding \"كوتشال\" above \"COATSHAL\", thick flat brass J-hook, and shoulders naturally INSIDE the jacket. The wooden center block is visible inside/above the collar. The hanger MUST physically support the garment from inside its shoulders as in input 2, not sit floating above it. No thin wire hanger, no triangular illustrated hanger, no long thin stem or string between jacket and hanger.\nPhotorealistic isolated full front view of ONE coat, on ONE realistic shop hanger, with a subtle natural drape. Camera almost directly from front, no strong perspective. Whole subject centered in a square transparent canvas: top of brass hook at 3% of canvas height; broad branded wood around 12-19%; coat collar starts around 17%; coat ends around 95%; coat width about 68%. Hook top centered at x=50%. Render no rack/bar at all, since the website supplies the rail.\nKeep the jacket complete and color-faithful. Realistic wood grain, brushed brass and textile. Actual transparent alpha everywhere outside hook, hanger and coat, including gaps. No backdrop, no ground, no shadows on the background, no extra garments, no collage or labels."
+    },
+    {
+      "asset": "public/images/classic-coat/rack/light-grey-front.png",
+      "references": [
+        "public/images/classic-coat/light-grey.jpg",
+        "public/images/classic-coats.jpg"
+      ],
+      "generatedFile": "exec-85d497a5-331b-4c79-b295-23171d5da929.png",
+      "tool": "built-in image_gen",
+      "transparentBackground": true,
+      "prompt": "Use case: compositing. Asset type: full garment on its real wooden hanger, transparent PNG for the Coatshal store.\nInput 1 is the coat to preserve: exact light-grey fabric, tailoring, gold lapel pin, dark buttons, lining, full sleeves, entire bottom hem.\nInput 2 is the REQUIRED hanger reference, a real close photo from this shop. Recreate that SAME broad curved dark walnut hanger with a thick rectangular curved central wooden block, small gold Coatshal branding \"كوتشال\" above \"COATSHAL\", thick flat brass J-hook, and shoulders naturally INSIDE the jacket. The wooden center block is visible inside/above the collar. The hanger MUST physically support the garment from inside its shoulders as in input 2, not sit floating above it. No thin wire hanger, no triangular illustrated hanger, no long thin stem or string between jacket and hanger.\nPhotorealistic isolated full front view of ONE coat, on ONE realistic shop hanger, with a subtle natural drape. Camera almost directly from front, no strong perspective. Whole subject centered in a square transparent canvas: top of brass hook at 3% of canvas height; broad branded wood around 12-19%; coat collar starts around 17%; coat ends around 95%; coat width about 68%. Hook top centered at x=50%. Render no rack/bar at all, since the website supplies the rail.\nKeep the jacket complete and color-faithful. Realistic wood grain, brushed brass and textile. Actual transparent alpha everywhere outside hook, hanger and coat, including gaps. No backdrop, no ground, no shadows on the background, no extra garments, no collage or labels."
+    },
+    {
+      "asset": "public/images/classic-coat/rack/black-back.png",
+      "references": [
+        "public/images/classic-coat/rack/black-front.png"
+      ],
+      "generatedFile": "exec-65372cde-5b92-4a84-a788-e70549ccb12c.png",
+      "tool": "built-in image_gen",
+      "transparentBackground": true,
+      "prompt": "Use case: product-mockup. Input is a full black Coatshal coat on the shop's authentic wooden hanger, with a brass hook. Create the corresponding directly-from-behind view of this exact hanging garment. This is a conceptual demo rear view, not a verified product photo. Preserve the exact canvas size, subject position, coat dimensions, fabric color, sleeves, and hem. Crucially preserve the exact hanger and brass hook scale and placement, naturally supporting the coat from INSIDE its shoulders. Show the back of the thick curved walnut wooden hanger, no gold logo on the rear. Its central wood remains above the rear collar as physical geometry permits. The hook is still at the same top center so it aligns with an external gold rail. No thin wire or triangle hanger, no long stem, no floating parts. Simple tailored coat back with center seam and single center vent, no front lapels or gold badge, no new decoration. Full sleeves and hem visible. Photorealistic, true transparent alpha everywhere around the single coat and hanger including sleeve gaps. No background or rack/bar, no floor shadow, no text or labels."
+    },
+    {
+      "asset": "public/images/classic-coat/rack/sand-back.png",
+      "references": [
+        "public/images/classic-coat/rack/sand-front.png"
+      ],
+      "generatedFile": "exec-120c695f-716e-42eb-88a2-df0c513cde89.png",
+      "tool": "built-in image_gen",
+      "transparentBackground": true,
+      "prompt": "Use case: product-mockup. Input is a full sand Coatshal coat on the shop's authentic wooden hanger, with a brass hook. Create the corresponding directly-from-behind view of this exact hanging garment. This is a conceptual demo rear view, not a verified product photo. Preserve the exact canvas size, subject position, coat dimensions, fabric color, sleeves, and hem. Crucially preserve the exact hanger and brass hook scale and placement, naturally supporting the coat from INSIDE its shoulders. Show the back of the thick curved walnut wooden hanger, no gold logo on the rear. Its central wood remains above the rear collar as physical geometry permits. The hook is still at the same top center so it aligns with an external gold rail. No thin wire or triangle hanger, no long stem, no floating parts. Simple tailored coat back with center seam and single center vent, no front lapels or gold badge, no new decoration. Full sleeves and hem visible. Photorealistic, true transparent alpha everywhere around the single coat and hanger including sleeve gaps. No background or rack/bar, no floor shadow, no text or labels."
+    },
+    {
+      "asset": "public/images/classic-coat/rack/taupe-back.png",
+      "references": [
+        "public/images/classic-coat/rack/taupe-front.png"
+      ],
+      "generatedFile": "exec-c9732453-c84d-475f-8ca5-feca2059b00d.png",
+      "tool": "built-in image_gen",
+      "transparentBackground": true,
+      "prompt": "Use case: product-mockup. Input is a full taupe Coatshal coat on the shop's authentic wooden hanger, with a brass hook. Create the corresponding directly-from-behind view of this exact hanging garment. This is a conceptual demo rear view, not a verified product photo. Preserve the exact canvas size, subject position, coat dimensions, fabric color, sleeves, and hem. Crucially preserve the exact hanger and brass hook scale and placement, naturally supporting the coat from INSIDE its shoulders. Show the back of the thick curved walnut wooden hanger, no gold logo on the rear. Its central wood remains above the rear collar as physical geometry permits. The hook is still at the same top center so it aligns with an external gold rail. No thin wire or triangle hanger, no long stem, no floating parts. Simple tailored coat back with center seam and single center vent, no front lapels or gold badge, no new decoration. Full sleeves and hem visible. Photorealistic, true transparent alpha everywhere around the single coat and hanger including sleeve gaps. No background or rack/bar, no floor shadow, no text or labels."
+    },
+    {
+      "asset": "public/images/classic-coat/rack/light-grey-back.png",
+      "references": [
+        "public/images/classic-coat/rack/light-grey-front.png"
+      ],
+      "generatedFile": "exec-df810835-4394-4214-8ea9-9f5eabf4a5c3.png",
+      "tool": "built-in image_gen",
+      "transparentBackground": true,
+      "prompt": "Use case: product-mockup. Input is a full light-grey Coatshal coat on the shop's authentic wooden hanger, with a brass hook. Create the corresponding directly-from-behind view of this exact hanging garment. This is a conceptual demo rear view, not a verified product photo. Preserve the exact canvas size, subject position, coat dimensions, fabric color, sleeves, and hem. Crucially preserve the exact hanger and brass hook scale and placement, naturally supporting the coat from INSIDE its shoulders. Show the back of the thick curved walnut wooden hanger, no gold logo on the rear. Its central wood remains above the rear collar as physical geometry permits. The hook is still at the same top center so it aligns with an external gold rail. No thin wire or triangle hanger, no long stem, no floating parts. Simple tailored coat back with center seam and single center vent, no front lapels or gold badge, no new decoration. Full sleeves and hem visible. Photorealistic, true transparent alpha everywhere around the single coat and hanger including sleeve gaps. No background or rack/bar, no floor shadow, no text or labels."
+    },
+    {
+      "asset": "public/images/classic-coat/rack/brass-rail.png",
+      "references": [
+        "public/images/classic-coats.jpg"
+      ],
+      "generatedFile": "exec-5135ac4b-b9d2-461e-82f5-e45926b2d038.png",
+      "tool": "built-in image_gen",
+      "transparentBackground": true,
+      "prompt": "Use case: precise-object-edit. Reference: the supplied close-up of the real Coatshal store rack. Extract/reconstruct ONLY the horizontal polished golden brass clothing rail from this photo, preserving its real brushed metallic grain, subtle wear, warm gold color and cylindrical lighting/reflections. Remove all hooks, hangers, clothes and background. A single perfectly straight horizontal cylindrical brass bar, photographed from the front, isolated on a genuinely transparent alpha background. No ornate decoration, no supports, no artificial-looking illustrated gradient. Small natural rounded endcaps. Output a wide panoramic image with the bar perfectly centered both vertically and horizontally, filling 96% of image width. Its diameter is very slender, approximately 1.2% of total image width. All surrounding space is transparent. Real photographic object with a continuous clean tube surface, no text, labels, shadows or extra objects."
+    }
+  ]
+}

@@ -1,4 +1,5 @@
 import './styles.css';
+import { mountCoatRack } from './coat-rack.js';
 
 const element = (id) => document.getElementById(id);
 const icon = (name) => '<svg class="icon" aria-hidden="true"><use href="#i-' + name + '"></use></svg>';
@@ -37,6 +38,7 @@ let cart = readCart();
 let stage = 'cart';
 let request;
 let submitting = false;
+let disposeRack;
 
 function readCart() {
   try {
@@ -151,8 +153,18 @@ function renderProducts() {
 }
 
 function renderLook(product) {
+  disposeRack?.();
+  disposeRack = undefined;
   const shadeId = selectedShades.get(product.id);
   const color = colorOf(product, shadeId);
+  if (product.colors?.every((shade) => shade.rackFront && shade.rackBack)) {
+    disposeRack = mountCoatRack(lookStage, product, {
+      selectedColorId: color.id,
+      onSelect: (id) => selectedShades.set(product.id, id),
+      html, money, productUrl, icon,
+    });
+    return;
+  }
   const url = html(productUrl(product, shadeId));
   lookStage.innerHTML = `
     <article class="look-stage">
